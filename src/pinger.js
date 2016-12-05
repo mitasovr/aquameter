@@ -1,12 +1,12 @@
 var request = require('request');
 
-request('http://192.168.1.70', function (error, response, body) {
+request('http://192.168.1.70/reset', function (error, response, body) {
     if (error) {
         return;
     }
     var digest = JSON.parse(body);
-    console.log(JSON.stringify({
-        ts: +new Date(),
-        digest: digest
-    }, 0, 2));
+    if (digest.ctrs[0].length === 0 && digest.ctrs[1].length === 0) {
+        return;
+    }
+    console.log(+new Date(), body);
 })
